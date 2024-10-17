@@ -9,14 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FIlePreprocessor {
-    static String inputFilePath = "src/input/adult.data";
-    static String outputFilePath = "src/output/adult_preprocessed.csv";
-    public static List<Object[]> preProcessFiles() throws IOException {
-        removeRegionAndQuestionMark();
+    public static List<Object[]> preProcessFiles(String inputFilePath, String outputFilePath) throws IOException {
+        removeRegionAndQuestionMark(inputFilePath, outputFilePath);
         return ConvertIncomeToLabel(outputFilePath);
     }
 
-    private static void removeRegionAndQuestionMark() throws IOException {
+    private static void removeRegionAndQuestionMark(String inputFilePath, String outputFilePath) throws IOException {
         List<String> filteredLines = new ArrayList<>();
         Files.lines(Paths.get(inputFilePath))
                 .filter(line -> !line.contains("?"))
@@ -40,20 +38,23 @@ public class FIlePreprocessor {
         String line;
         while ((line = br.readLine()) != null) {
             String[] values = line.trim().split(", ");
-            Object[] row = new Object[values.length];
-            for (int i = 0; i < values.length; i++) {
-                // Try to parse as integer, otherwise keep as String
+            if (values.length != 15) {  // 期望数据集有15列，收入标签为最后一列
+                continue;  // 忽略列数不匹配的行
+            }
+            Object[] row = new Object[values.length - 1];  // 不包含收入标签
+            for (int i = 0; i < values.length - 1; i++) {
                 try {
-                    row[i] = Integer.parseInt(values[i]);
+                    row[i] = Integer.parseInt(values[i]);  // 转换为整数
                 } catch (NumberFormatException e) {
-                    row[i] = values[i];
+                    row[i] = values[i];  // 保留非整数值
                 }
             }
-            // Convert income label to 1 or -1
-            row[row.length - 1] = values[values.length - 1].equals(">50K") ? 1 : -1;
+            // 处理收入标签（最后一列）
+            row[row.length - 1] = values[values.length - 1].equals(">50K") || values[values.length - 1].equals(">50K.") ? 1 : -1;
             data.add(row);
         }
         br.close();
+        System.out.println(data.size());
         return data;
     }
 }
