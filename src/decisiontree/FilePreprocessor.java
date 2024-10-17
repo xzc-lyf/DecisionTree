@@ -7,48 +7,54 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class FIlePreprocessor {
-
+/**
+ * Preprocessing includes 4 parts basically:
+ *   1. Remove rows containing missing values.
+ *   2. Remove the attribute "native-country".
+ *   3. Converting the value of income from binary to integer 1(>50K) and -1(<=50K).
+ *   4. Save the processed files to output directory.
+ */
+public class FilePreprocessor {
     public static List<Object[]> processAndSaveFile(String inputFilePath, String outputFilePath) throws IOException {
         List<String> processedLines = new ArrayList<>();
         List<Object[]> finalData = new ArrayList<>();
 
-        // 读取输入文件并处理
         Files.lines(Paths.get(inputFilePath))
-                .filter(line -> !line.contains("?"))  // 过滤掉包含 ? 的行
+                // Filter the rows contains "?".
+                .filter(line -> !line.contains("?"))
                 .map(line -> {
-                    String[] fields = line.split(", ");  // 分割字段
-                    if (fields.length != 15) return null; // 确保行有正确的列数
+                    String[] fields = line.split(", ");
+                    if (fields.length != 15) return null;
                     List<String> filteredFields = new ArrayList<>();
                     for (int i = 0; i < fields.length - 1; i++) {
-                        if (i != fields.length - 2) {  // 删除倒数第二列
+                        // Delete the second-to-last column.
+                        if (i != fields.length - 2) {
                             filteredFields.add(fields[i]);
                         }
                     }
-                    // 处理收入标签
                     String incomeLabel = fields[fields.length - 1];
-                    int label = incomeLabel.equals(">50K") || incomeLabel.equals(">50K.") ? 1 : -1;
-                    filteredFields.add(String.valueOf(label));  // 将标签转换为数字形式
-                    return String.join(",", filteredFields);  // 拼接成字符串
+                    // Converting the value of income from binary to integer 1(>50K) and -1(<=50K).
+                    int label = incomeLabel.equals(">50K") || incomeLabel.equals(">50K.")? 1 : -1;
+                    filteredFields.add(String.valueOf(label));
+                    return String.join(",", filteredFields);
                 })
-                .filter(Objects::nonNull)  // 过滤掉无效行
+                .filter(Objects::nonNull)
                 .forEach(processedLines::add);
 
-        // 将处理后的结果写入输出文件
+        // Writes the processed result to the output file.
         Files.write(Paths.get(outputFilePath), processedLines);
 
-        // 可选：如果需要返回处理后的数据，可以解析为最终的Object[]形式
         for (String line : processedLines) {
             String[] values = line.split(",");
             Object[] row = new Object[values.length];
             for (int i = 0; i < values.length - 1; i++) {
                 try {
-                    row[i] = Integer.parseInt(values[i]);  // 尝试转换为整数
+                    row[i] = Integer.parseInt(values[i]);
                 } catch (NumberFormatException e) {
-                    row[i] = values[i];  // 处理非整数值
+                    row[i] = values[i];
                 }
             }
-            row[values.length - 1] = Integer.parseInt(values[values.length - 1]);  // 最后一列是标签，已为数字
+            row[values.length - 1] = Integer.parseInt(values[values.length - 1]);
             finalData.add(row);
         }
         return finalData;

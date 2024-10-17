@@ -3,16 +3,23 @@ package decisiontree;
 import java.io.IOException;
 import java.util.List;
 import static decisiontree.Classifier.classify;
-import static decisiontree.FIlePreprocessor.processAndSaveFile;
+import static decisiontree.FilePreprocessor.processAndSaveFile;
 import static decisiontree.TreeBuilder.buildTree;
+
 public class Main {
     public static void main(String[] args) throws IOException {
+        // 1. Pre-process training set, change the file path params if necessary.
         List<Object[]> trainingData = processAndSaveFile("src/input/adult.data", "src/output/adult_preprocessed.csv");
-        System.out.println("Building decision tree...");
+        System.out.println("Building decision tree will take several minutes...");
+
+        // 2. Build decision tree based on training set data.
         TreeNode tree = buildTree(trainingData);
         System.out.println("Decision tree built.");
 
+        // 3. Pre-process test set, change the file path params if necessary.
         List<Object[]> testData = processAndSaveFile("src/input/adult.test", "src/output/adult_test_preprocessed.csv");
+
+        // 4. Classify test data.
         System.out.println("Classifying test data...");
         int correct = 0;
         for (Object[] row : testData) {
@@ -21,8 +28,10 @@ public class Main {
                 correct++;
             }
         }
-        System.out.println(correct + " " + testData.size());
+
+        // 5. Print out precision rate.
+        System.out.println("Correct: " + correct + ", Total: " + testData.size());
         double accuracy = (double) correct / testData.size();
-        System.out.println(accuracy);
+        System.out.println("Precision: " + accuracy);
     }
 }
