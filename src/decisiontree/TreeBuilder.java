@@ -1,7 +1,6 @@
 package decisiontree;
 
 import java.util.*;
-
 import decisiontree.TreeNode.Check;
 
 public class TreeBuilder {
@@ -17,8 +16,8 @@ public class TreeBuilder {
         for (int col = 0; col < TreeNode.attributes.length; col++) {
             Set<Object> uniqueValues = new HashSet<>();
             for (Object[] row : data) {
-                if (col < row.length) {  // 防止数组越界
-                    uniqueValues.add(row[col]);  // 获取列的唯一值
+                if (col < row.length) {
+                    uniqueValues.add(row[col]);
                 }
             }
             for (Object value : uniqueValues) {
@@ -39,7 +38,7 @@ public class TreeBuilder {
         }
 
         if (bestGini == 1.0) {
-            return new TreeNode(labelClasses(data));  // 叶节点
+            return new TreeNode(labelClasses(data));
         }
 
         TreeNode trueBranch = buildTree(bestPartition[0]);

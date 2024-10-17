@@ -10,9 +10,9 @@ public class Main {
     public static void main(String[] args) throws IOException {
         // 1. Pre-process training set, change the file path params if necessary.
         List<Object[]> trainingData = processAndSaveFile("src/input/adult.data", "src/output/adult_preprocessed.csv");
-        System.out.println("Building decision tree will take several minutes...");
 
         // 2. Build decision tree based on training set data.
+        System.out.println("Building decision tree will take several minutes...");
         TreeNode tree = buildTree(trainingData);
         System.out.println("Decision tree built.");
 
