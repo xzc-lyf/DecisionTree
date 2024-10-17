@@ -1,60 +1,56 @@
 package decisiontree;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class FIlePreprocessor {
-    public static List<Object[]> preProcessFiles(String inputFilePath, String outputFilePath) throws IOException {
-        removeRegionAndQuestionMark(inputFilePath, outputFilePath);
-        return ConvertIncomeToLabel(outputFilePath);
-    }
 
-    private static void removeRegionAndQuestionMark(String inputFilePath, String outputFilePath) throws IOException {
-        List<String> filteredLines = new ArrayList<>();
+    public static List<Object[]> processAndSaveFile(String inputFilePath, String outputFilePath) throws IOException {
+        List<String> processedLines = new ArrayList<>();
+        List<Object[]> finalData = new ArrayList<>();
+
+        // 读取输入文件并处理
         Files.lines(Paths.get(inputFilePath))
-                .filter(line -> !line.contains("?"))
+                .filter(line -> !line.contains("?"))  // 过滤掉包含 ? 的行
                 .map(line -> {
-                    String[] fields = line.split(",");
+                    String[] fields = line.split(", ");  // 分割字段
+                    if (fields.length != 15) return null; // 确保行有正确的列数
                     List<String> filteredFields = new ArrayList<>();
-                    for (int i = 0; i < fields.length; i++) {
-                        if (i != fields.length - 2) {
+                    for (int i = 0; i < fields.length - 1; i++) {
+                        if (i != fields.length - 2) {  // 删除倒数第二列
                             filteredFields.add(fields[i]);
                         }
                     }
-                    return String.join(",", filteredFields);
+                    // 处理收入标签
+                    String incomeLabel = fields[fields.length - 1];
+                    int label = incomeLabel.equals(">50K") || incomeLabel.equals(">50K.") ? 1 : -1;
+                    filteredFields.add(String.valueOf(label));  // 将标签转换为数字形式
+                    return String.join(",", filteredFields);  // 拼接成字符串
                 })
-                .forEach(filteredLines::add);
-        Files.write(Paths.get(outputFilePath), filteredLines);
-    }
+                .filter(Objects::nonNull)  // 过滤掉无效行
+                .forEach(processedLines::add);
 
-    static List<Object[]> ConvertIncomeToLabel(String filename) throws IOException {
-        List<Object[]> data = new ArrayList<>();
-        BufferedReader br = new BufferedReader(new FileReader(filename));
-        String line;
-        while ((line = br.readLine()) != null) {
-            String[] values = line.trim().split(", ");
-            if (values.length != 15) {  // 期望数据集有15列，收入标签为最后一列
-                continue;  // 忽略列数不匹配的行
-            }
-            Object[] row = new Object[values.length - 1];  // 不包含收入标签
+        // 将处理后的结果写入输出文件
+        Files.write(Paths.get(outputFilePath), processedLines);
+
+        // 可选：如果需要返回处理后的数据，可以解析为最终的Object[]形式
+        for (String line : processedLines) {
+            String[] values = line.split(",");
+            Object[] row = new Object[values.length];
             for (int i = 0; i < values.length - 1; i++) {
                 try {
-                    row[i] = Integer.parseInt(values[i]);  // 转换为整数
+                    row[i] = Integer.parseInt(values[i]);  // 尝试转换为整数
                 } catch (NumberFormatException e) {
-                    row[i] = values[i];  // 保留非整数值
+                    row[i] = values[i];  // 处理非整数值
                 }
             }
-            // 处理收入标签（最后一列）
-            row[row.length - 1] = values[values.length - 1].equals(">50K") || values[values.length - 1].equals(">50K.") ? 1 : -1;
-            data.add(row);
+            row[values.length - 1] = Integer.parseInt(values[values.length - 1]);  // 最后一列是标签，已为数字
+            finalData.add(row);
         }
-        br.close();
-        System.out.println(data.size());
-        return data;
+        return finalData;
     }
 }
