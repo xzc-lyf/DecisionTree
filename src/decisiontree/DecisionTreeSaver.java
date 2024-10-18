@@ -10,7 +10,7 @@ public class DecisionTreeSaver {
         BufferedWriter writer = null;
         try {
             writer = new BufferedWriter(new FileWriter(filePath));
-            saveNode(node, writer, 0);
+            saveNode(node, writer, "", true);
         } finally {
             if (writer != null) {
                 writer.close();
@@ -18,27 +18,17 @@ public class DecisionTreeSaver {
         }
     }
 
-    private static void saveNode(TreeNode node, BufferedWriter writer, int depth) throws IOException {
+    private static void saveNode(TreeNode node, BufferedWriter writer, String prefix, boolean isTail) throws IOException {
         // 如果是叶子节点，保存分类结果
         if (node.isLeaf()) {
-            writer.write(indent(depth) + "Leaf: " + node.results + "\n");  // 输出叶子节点中的分类结果
+            writer.write(prefix + (isTail ? "└── " : "├── ") + "Leaf: " + node.results + "\n");
         } else {
             // 保存当前节点的检查条件
-            writer.write(indent(depth) + "Check: " + node.condition + "\n");  // 输出条件描述
+            writer.write(prefix + (isTail ? "└── " : "├── ") + "Check: " + node.condition + "\n");
             // 保存 true 分支
-            writer.write(indent(depth) + "--> True Branch:\n");
-            saveNode(node.trueBranch, writer, depth + 1);
+            saveNode(node.trueBranch, writer, prefix + (isTail ? "    " : "│   "), false);
             // 保存 false 分支
-            writer.write(indent(depth) + "--> False Branch:\n");
-            saveNode(node.falseBranch, writer, depth + 1);
+            saveNode(node.falseBranch, writer, prefix + (isTail ? "    " : "│   "), true);
         }
-    }
-
-    private static String indent(int depth) {
-        StringBuilder indent = new StringBuilder();
-        for (int i = 0; i < depth; i++) {
-            indent.append("  ");
-        }
-        return indent.toString();
     }
 }

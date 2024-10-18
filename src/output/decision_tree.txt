@@ -1,53 +1,27 @@
-Check: Is marital-status == Married-civ-spouse?
---> True Branch:
-  Check: Is education-num > 12?
-  --> True Branch:
-    Check: Is capital-gain > 5013?
-    --> True Branch:
-      Check: Is age > 79?
-      --> True Branch:
-        Check: Is workclass == Self-emp-not-inc?
-        --> True Branch:
-          Leaf: {-1=1}
-        --> False Branch:
-          Check: Is fnlwgt > 46786?
-          --> True Branch:
-            Check: Is education == Masters?
-            --> True Branch:
-              Leaf: {1=1}
-            --> False Branch:
-              Leaf: {1=1}
-          --> False Branch:
-            Leaf: {1=1}
-      --> False Branch:
-        Check: Is occupation == Farming-fishing?
-        --> True Branch:
-          Check: Is hours-per-week > 40?
-          --> True Branch:
-            Leaf: {-1=1, 1=1}
-          --> False Branch:
-            Check: Is race == Asian-Pac-Islander?
-            --> True Branch:
-              Leaf: {1=1}
-            --> False Branch:
-              Leaf: {1=2}
-        --> False Branch:
-          Check: Is relationship == Own-child?
-          --> True Branch:
-            Leaf: {1=1}
-          --> False Branch:
-            Check: Is sex == Male?
-            --> True Branch:
-              Leaf: {1=570}
-            --> False Branch:
-              Leaf: {1=60}
-    --> False Branch:
-      Check: Is capital-loss > 1740?
-      --> True Branch:
-        Leaf: {-1=10, 1=366}
-      --> False Branch:
-        Leaf: {-1=1116, 1=2053}
-  --> False Branch:
-    Leaf: {-1=6538, 1=3342}
---> False Branch:
-  Leaf: {-1=14988, 1=1109}
+└── Check: Is marital-status == Married-civ-spouse?
+    ├── Check: Is education-num > 12?
+    │   ├── Check: Is capital-gain > 5013?
+    │   │   ├── Check: Is age > 79?
+    │   │   │   ├── Check: Is workclass == Self-emp-not-inc?
+    │   │   │   │   ├── Leaf: {-1=1}
+    │   │   │   │   └── Check: Is fnlwgt > 46786?
+    │   │   │   │       ├── Check: Is education == Masters?
+    │   │   │   │       │   ├── Leaf: {1=1}
+    │   │   │   │       │   └── Leaf: {1=1}
+    │   │   │   │       └── Leaf: {1=1}
+    │   │   │   └── Check: Is occupation == Farming-fishing?
+    │   │   │       ├── Check: Is hours-per-week > 40?
+    │   │   │       │   ├── Leaf: {-1=1, 1=1}
+    │   │   │       │   └── Check: Is race == Asian-Pac-Islander?
+    │   │   │       │       ├── Leaf: {1=1}
+    │   │   │       │       └── Leaf: {1=2}
+    │   │   │       └── Check: Is relationship == Own-child?
+    │   │   │           ├── Leaf: {1=1}
+    │   │   │           └── Check: Is sex == Male?
+    │   │   │               ├── Leaf: {1=570}
+    │   │   │               └── Leaf: {1=60}
+    │   │   └── Check: Is capital-loss > 1740?
+    │   │       ├── Leaf: {-1=10, 1=366}
+    │   │       └── Leaf: {-1=1116, 1=2053}
+    │   └── Leaf: {-1=6538, 1=3342}
+    └── Leaf: {-1=14988, 1=1109}
