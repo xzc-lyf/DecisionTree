@@ -5,32 +5,49 @@ import decisiontree.TreeNode.Check;
 import java.util.*;
 
 public class TreeBuilder {
+
+    public static final int S_Bar = 100;
+
     public static TreeNode buildTree(List<Object[]> data, Set<Integer> usedCols) {
         if (data.isEmpty()) {
             return null;
         }
 
+        Set<Object> set = new HashSet<Object>();
+        for (Object[] row : data) {
+            set.add(row[row.length - 1]);
+        }
+
+        if (data.size() < S_Bar || set.size() == 1) {
+            return new TreeNode(labelClasses(data));
+        }
+
         double bestGini = 1.0;
         Check bestCheck = null;
         List<Object[]>[] bestPartition = null;
+        int count = 0;
 
         for (int col = 0; col < TreeNode.attributes.length; col++) {
-            if(usedCols.contains(col)){
-                continue; //跳过当前已经计算过的属性
+            if (usedCols.contains(col)) {
+                continue; // 跳过当前已经计算过的属性
             }
             Set<Object> uniqueValues = new HashSet<Object>();
             for (Object[] row : data) {
                 uniqueValues.add(row[col]);
             }
+            if (uniqueValues.size() == 1) {
+                count++;
+            }
+
             for (Object value : uniqueValues) {
                 Check check = new Check(col, value);
                 List<Object[]>[] partitions = partition(check, data);
-                List<Object[]> trueSet = partitions[0];
-                List<Object[]> falseSet = partitions[1];
+                List<Object[]> trueList = partitions[0];
+                List<Object[]> falseList = partitions[1];
 
-                if (trueSet.isEmpty() || falseSet.isEmpty()) continue;
+                if (trueList.isEmpty() || falseList.isEmpty()) continue;
 
-                double giniSplit = giniSplit(trueSet, falseSet);
+                double giniSplit = giniSplit(trueList, falseList);
                 if (giniSplit < bestGini) {
                     bestGini = giniSplit;
                     bestCheck = check;
@@ -39,14 +56,14 @@ public class TreeBuilder {
             }
         }
 
-        if (bestGini == 1.0) {
+        if (bestGini == 1.0 || count + usedCols.size() == 13) {
             return new TreeNode(labelClasses(data));
         }
-        //记录使用的列
+        // 记录使用的列
         usedCols.add(bestCheck.col);
 
-        TreeNode leftChild = buildTree(bestPartition[0],usedCols);
-        TreeNode rightChild = buildTree(bestPartition[1],usedCols);
+        TreeNode leftChild = buildTree(bestPartition[0], usedCols);
+        TreeNode rightChild = buildTree(bestPartition[1], usedCols);
         return new TreeNode(bestCheck, leftChild, rightChild);
     }
 

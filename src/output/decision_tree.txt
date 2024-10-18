@@ -2,24 +2,24 @@
     ├── Check: Is education-num > 12?
     │   ├── Check: Is capital-gain > 5013?
     │   │   ├── Check: Is age > 79?
-    │   │   │   ├── Check: Is workclass == Self-emp-not-inc?
-    │   │   │   │   ├── Leaf: {-1=1}
-    │   │   │   │   └── Check: Is fnlwgt > 46786?
-    │   │   │   │       ├── Check: Is education == Masters?
-    │   │   │   │       │   ├── Leaf: {1=1}
-    │   │   │   │       │   └── Leaf: {1=1}
-    │   │   │   │       └── Leaf: {1=1}
+    │   │   │   ├── Leaf: {-1=1, 1=3}
     │   │   │   └── Check: Is occupation == Farming-fishing?
-    │   │   │       ├── Check: Is hours-per-week > 40?
-    │   │   │       │   ├── Leaf: {-1=1, 1=1}
-    │   │   │       │   └── Check: Is race == Asian-Pac-Islander?
-    │   │   │       │       ├── Leaf: {1=1}
-    │   │   │       │       └── Leaf: {1=2}
-    │   │   │       └── Check: Is relationship == Own-child?
-    │   │   │           ├── Leaf: {1=1}
-    │   │   │           └── Check: Is sex == Male?
-    │   │   │               ├── Leaf: {1=570}
-    │   │   │               └── Leaf: {1=60}
+    │   │   │       ├── Leaf: {-1=1, 1=4}
+    │   │   │       └── Check: Is workclass == Self-emp-inc?
+    │   │   │           ├── Leaf: {1=91}
+    │   │   │           └── Check: Is fnlwgt > 177154?
+    │   │   │               ├── Check: Is education == Masters?
+    │   │   │               │   ├── Leaf: {1=59}
+    │   │   │               │   └── Check: Is relationship == Husband?
+    │   │   │               │       ├── Check: Is race == Amer-Indian-Eskimo?
+    │   │   │               │       │   ├── Leaf: {1=1}
+    │   │   │               │       │   └── Check: Is hours-per-week > 65?
+    │   │   │               │       │       ├── Leaf: {1=7}
+    │   │   │               │       │       └── Leaf: {1=173}
+    │   │   │               │       └── Leaf: {1=19}
+    │   │   │               └── Check: Is sex == Male?
+    │   │   │                   ├── Leaf: {1=248}
+    │   │   │                   └── Leaf: {1=33}
     │   │   └── Check: Is capital-loss > 1740?
     │   │       ├── Leaf: {-1=10, 1=366}
     │   │       └── Leaf: {-1=1116, 1=2053}
