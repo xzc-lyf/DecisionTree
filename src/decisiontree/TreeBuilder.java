@@ -5,7 +5,7 @@ import decisiontree.TreeNode.Check;
 import java.util.*;
 
 public class TreeBuilder {
-    public static TreeNode buildTree(List<Object[]> data) {
+    public static TreeNode buildTree(List<Object[]> data, Set<Integer> usedCols) {
         if (data.isEmpty()) {
             return null;
         }
@@ -15,6 +15,9 @@ public class TreeBuilder {
         List<Object[]>[] bestPartition = null;
 
         for (int col = 0; col < TreeNode.attributes.length; col++) {
+            if(usedCols.contains(col)){
+                continue; //跳过当前已经计算过的属性
+            }
             Set<Object> uniqueValues = new HashSet<Object>();
             for (Object[] row : data) {
                 uniqueValues.add(row[col]);
@@ -39,9 +42,11 @@ public class TreeBuilder {
         if (bestGini == 1.0) {
             return new TreeNode(labelClasses(data));
         }
+        //记录使用的列
+        usedCols.add(bestCheck.col);
 
-        TreeNode leftChild = buildTree(bestPartition[0]);
-        TreeNode rightChild = buildTree(bestPartition[1]);
+        TreeNode leftChild = buildTree(bestPartition[0],usedCols);
+        TreeNode rightChild = buildTree(bestPartition[1],usedCols);
         return new TreeNode(bestCheck, leftChild, rightChild);
     }
 

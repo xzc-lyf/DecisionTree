@@ -1,7 +1,10 @@
 package decisiontree;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import static decisiontree.Classifier.classify;
 import static decisiontree.DecisionTreeSaver.saveTreeToFile;
 import static decisiontree.FilePreprocessor.processAndSaveFile;
@@ -14,7 +17,8 @@ public class Main {
 
         // 2. Build decision tree based on training set data.
         System.out.println("Building decision tree will take several minutes...");
-        TreeNode tree = buildTree(trainingData);
+        Set<Integer> usedCols = new HashSet<Integer>(); //初始化一个“使用过的列”
+        TreeNode tree = buildTree(trainingData, usedCols);
         saveTreeToFile(tree, "src/output/decision_tree.txt");
         System.out.println("Decision tree built, please check output directory.");
 
