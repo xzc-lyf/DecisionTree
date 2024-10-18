@@ -19,10 +19,10 @@ public class TreeBuilder {
         }
 
         if (data.size() < S_Bar || set.size() == 1) {
-            return new TreeNode(labelClasses(data));
+            return new LeafNode(labelClasses(data));
         }
 
-        double bestGini = 1.0;
+        double bestGini = 0.5;
         Check bestCheck = null;
         List<Object[]>[] bestPartition = null;
         int count = 0;
@@ -56,8 +56,8 @@ public class TreeBuilder {
             }
         }
 
-        if (bestGini == 1.0 || count + usedCols.size() == 13) {
-            return new TreeNode(labelClasses(data));
+        if (bestGini == 0.5 || count + usedCols.size() == 13) {
+            return new LeafNode(labelClasses(data));
         }
         // 记录使用的列
         usedCols.add(bestCheck.col);

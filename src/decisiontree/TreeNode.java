@@ -20,6 +20,9 @@ public class TreeNode {
         this.results = results;
     }
 
+    TreeNode() {
+    }
+
     boolean isLeaf() {
         return results != null;
     }
