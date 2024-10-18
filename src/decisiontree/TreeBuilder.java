@@ -15,7 +15,7 @@ public class TreeBuilder {
         List<Object[]>[] bestPartition = null;
 
         for (int col = 0; col < TreeNode.attributes.length; col++) {
-            Set<Object> uniqueValues = new HashSet<>();
+            Set<Object> uniqueValues = new HashSet<Object>();
             for (Object[] row : data) {
                 uniqueValues.add(row[col]);
             }
@@ -46,8 +46,8 @@ public class TreeBuilder {
     }
 
     public static List<Object[]>[] partition(Check condition, List<Object[]> data) {
-        List<Object[]> trueSet = new ArrayList<>();
-        List<Object[]> falseSet = new ArrayList<>();
+        List<Object[]> trueSet = new ArrayList<Object[]>();
+        List<Object[]> falseSet = new ArrayList<Object[]>();
         for (Object[] row : data) {
             if (condition.check(row)) {
                 trueSet.add(row);
@@ -74,10 +74,14 @@ public class TreeBuilder {
     }
 
     public static Map<Integer, Integer> labelClasses(List<Object[]> data) {
-        Map<Integer, Integer> counts = new HashMap<>();
+        Map<Integer, Integer> counts = new HashMap<Integer, Integer>();
         for (Object[] row : data) {
-            int label = (int) row[row.length - 1];
-            counts.put(label, counts.getOrDefault(label, 0) + 1);
+            int label = (Integer) row[row.length - 1];
+            if (counts.containsKey(label)) {
+                counts.put(label, counts.get(label) + 1);
+            } else {
+                counts.put(label, 1);
+            }
         }
         return counts;
     }

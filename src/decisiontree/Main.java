@@ -16,7 +16,7 @@ public class Main {
         System.out.println("Building decision tree will take several minutes...");
         TreeNode tree = buildTree(trainingData);
         saveTreeToFile(tree, "src/output/decision_tree.txt");
-        System.out.println("Decision tree built.");
+        System.out.println("Decision tree built, please check output directory.");
 
         // 3. Pre-process test set, change the file path params if necessary.
         List<Object[]> testData = processAndSaveFile("src/input/adult.test", "src/output/adult_test_preprocessed.csv");
@@ -26,7 +26,7 @@ public class Main {
         int correct = 0;
         for (Object[] row : testData) {
             int prediction = classify(row, tree);
-            if (prediction == (int) row[row.length - 1]) {
+            if (prediction == (Integer) row[row.length - 1]) {
                 correct++;
             }
         }

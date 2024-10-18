@@ -7,8 +7,14 @@ import java.io.IOException;
 public class DecisionTreeSaver {
     // 保存决策树到文件
     public static void saveTreeToFile(TreeNode node, String filePath) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            saveNode(node, writer, 0);  // 递归保存节点
+        BufferedWriter writer = null;
+        try {
+            writer = new BufferedWriter(new FileWriter(filePath));
+            saveNode(node, writer, 0);
+        } finally {
+            if (writer != null) {
+                writer.close();
+            }
         }
     }
 

@@ -24,7 +24,7 @@ public class TreeNode {
         return results != null;
     }
 
-    static class Check {
+    public static class Check {
         int col;
         Object val;
 
