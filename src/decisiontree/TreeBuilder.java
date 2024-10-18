@@ -1,7 +1,5 @@
 package decisiontree;
 
-import decisiontree.TreeNode.Check;
-
 import java.util.*;
 
 public class TreeBuilder {
@@ -27,7 +25,7 @@ public class TreeBuilder {
         List<Object[]>[] bestPartition = null;
         int count = 0;
 
-        for (int col = 0; col < TreeNode.attributes.length; col++) {
+        for (int col = 0; col < 13; col++) {
             if (usedCols.contains(col)) {
                 continue; // 跳过当前已经计算过的属性
             }
