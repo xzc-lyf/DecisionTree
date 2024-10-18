@@ -8,7 +8,7 @@ import java.util.List;
  * Preprocessing includes 4 parts basically:
  *   1. Remove rows containing missing values.
  *   2. Remove the attribute "native-country".
- *   3. Converting the value of income from binary to integer 1(>50K) and -1(<=50K).
+ *   3. Convert the value of income from binary to integer 1(>50K) and -1(<=50K).
  *   4. Save the processed files to output directory.
  */
 public class FilePreprocessor {
@@ -16,30 +16,31 @@ public class FilePreprocessor {
         List<String> processedLines = new ArrayList<String>();
         List<Object[]> finalData = new ArrayList<Object[]>();
 
-        // 使用BufferedReader读取输入文件并处理
         BufferedReader reader = new BufferedReader(new FileReader(inputFilePath));
         String line;
         while ((line = reader.readLine()) != null) {
-            if (!line.contains("?")) {  // 过滤掉包含 ? 的行
-                String[] fields = line.split(", ");  // 分割字段
-                if (fields.length == 15) {  // 确保行有正确的列数
+            // Filter rows contain "?".
+            if (!line.contains("?")) {
+                String[] fields = line.split(", ");
+                if (fields.length == 15) {
                     List<String> filteredFields = new ArrayList<String>();
                     for (int i = 0; i < fields.length - 1; i++) {
-                        if (i != fields.length - 2) {  // 删除倒数第二列
+                        // Delete the second-to-last column
+                        if (i != fields.length - 2) {
                             filteredFields.add(fields[i]);
                         }
                     }
-                    // 处理收入标签
                     String incomeLabel = fields[fields.length - 1];
+                    // Convert the value of income from binary to integer 1(>50K) and -1(<=50K).
                     int label = incomeLabel.equals(">50K") || incomeLabel.equals(">50K.") ? 1 : -1;
-                    filteredFields.add(String.valueOf(label));  // 将标签转换为数字形式
-                    processedLines.add(join(filteredFields));  // 拼接成字符串并添加到列表
+                    filteredFields.add(String.valueOf(label));
+                    processedLines.add(join(filteredFields));
                 }
             }
         }
         reader.close();
 
-        // 将处理后的结果写入输出文件
+        // Save the pre-processed files to disk.
         BufferedWriter writer = new BufferedWriter(new FileWriter(outputFilePath));
         for (String processedLine : processedLines) {
             writer.write(processedLine);
@@ -47,18 +48,18 @@ public class FilePreprocessor {
         }
         writer.close();
 
-        // 可选：如果需要返回处理后的数据，可以解析为最终的Object[]形式
+        // The processed data is returned as Object[].
         for (String processedLine : processedLines) {
             String[] values = processedLine.split(",");
             Object[] row = new Object[values.length];
             for (int i = 0; i < values.length - 1; i++) {
                 try {
-                    row[i] = Integer.parseInt(values[i]);  // 尝试转换为整数
+                    row[i] = Integer.parseInt(values[i]);
                 } catch (NumberFormatException e) {
-                    row[i] = values[i];  // 处理非整数值
+                    row[i] = values[i];
                 }
             }
-            row[values.length - 1] = Integer.parseInt(values[values.length - 1]);  // 最后一列是标签，已为数字
+            row[values.length - 1] = Integer.parseInt(values[values.length - 1]);
             finalData.add(row);
         }
         return finalData;
