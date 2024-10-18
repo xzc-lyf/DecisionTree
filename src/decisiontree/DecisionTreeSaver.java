@@ -5,7 +5,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class DecisionTreeSaver {
-    // 保存决策树到文件
     public static void saveTreeToFile(TreeNode node, String filePath) throws IOException {
         BufferedWriter writer = null;
         try {

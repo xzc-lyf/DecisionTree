@@ -15,9 +15,9 @@ public class FilePreprocessor {
     public static List<Object[]> processAndSaveFile(String inputFilePath, String outputFilePath) throws IOException {
         List<String> processedLines = new ArrayList<String>();
         List<Object[]> finalData = new ArrayList<Object[]>();
-
         BufferedReader reader = new BufferedReader(new FileReader(inputFilePath));
         String line;
+
         while ((line = reader.readLine()) != null) {
             // Filter rows contain "?".
             if (!line.contains("?")) {

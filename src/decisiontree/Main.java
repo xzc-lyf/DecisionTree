@@ -37,7 +37,6 @@ public class Main {
 
         // 5. Print out precision rate.
         System.out.println("Correct: " + correct + ", Total: " + testData.size());
-        double accuracy = (double) correct / testData.size();
-        System.out.println("Precision: " + accuracy);
+        System.out.println("Precision: " + ((double) correct / testData.size()));
     }
 }

@@ -11,11 +11,6 @@ public class LeafNode extends TreeNode{
         this.results = results;
         int countOfOne = results.get(1) == null ? 0 : results.get(1);
         int countOfMinusOne = results.get(-1) == null ? 0 : results.get(-1);
-
-        if (countOfOne > countOfMinusOne) {
-            this.category = 1;
-        } else {
-            this.category = -1;
-        }
+        this.category = (countOfOne > countOfMinusOne) ? 1 : -1;
     }
 }

@@ -2,15 +2,7 @@ package decisiontree;
 
 public class Classifier {
     public static int classify(Object[] row, TreeNode node) {
-        if (node instanceof LeafNode) {
-            LeafNode leaf = (LeafNode) node;
-            return leaf.category;
-        }
-
-        if (node.condition.check(row)) {
-            return classify(row, node.trueBranch);
-        } else {
-            return classify(row, node.falseBranch);
-        }
+        return (node instanceof LeafNode) ? ((LeafNode) node).category
+                : classify(row, node.condition.check(row) ? node.trueBranch : node.falseBranch);
     }
 }

@@ -3,8 +3,9 @@ package decisiontree;
 import java.util.*;
 
 public class TreeBuilder {
-
     public static final int S_Bar = 100;
+    public static String[] attributes = {"age", "workclass", "fnlwgt", "education", "education-num", "marital-status",
+            "occupation", "relationship", "race", "sex", "capital-gain", "capital-loss", "hours-per-week"};
 
     public static TreeNode buildTree(List<Object[]> data, Set<Integer> usedCols) {
         if (data.isEmpty()) {
@@ -25,9 +26,9 @@ public class TreeBuilder {
         List<Object[]>[] bestPartition = null;
         int count = 0;
 
-        for (int col = 0; col < 13; col++) {
+        for (int col = 0; col < attributes.length; col++) {
             if (usedCols.contains(col)) {
-                continue; // 跳过当前已经计算过的属性
+                continue;
             }
             Set<Object> uniqueValues = new HashSet<Object>();
             for (Object[] row : data) {
@@ -40,13 +41,11 @@ public class TreeBuilder {
             for (Object value : uniqueValues) {
                 Check check = new Check(col, value);
                 List<Object[]>[] partitions = partition(check, data);
-                List<Object[]> trueList = partitions[0];
-                List<Object[]> falseList = partitions[1];
+                List<Object[]> leftChild = partitions[0];
+                List<Object[]> rightChild = partitions[1];
 
-                if (trueList.isEmpty() || falseList.isEmpty()) continue;
-
-                double giniSplit = giniSplit(trueList, falseList);
-                if (giniSplit < bestGini) {
+                double giniSplit = giniSplit(leftChild, rightChild);
+                if (!leftChild.isEmpty() && !rightChild.isEmpty() && giniSplit < bestGini) {
                     bestGini = giniSplit;
                     bestCheck = check;
                     bestPartition = partitions;
@@ -57,7 +56,7 @@ public class TreeBuilder {
         if (bestGini == 0.5 || count + usedCols.size() == 13) {
             return new LeafNode(labelClasses(data));
         }
-        // 记录使用的列
+
         usedCols.add(bestCheck.col);
 
         TreeNode leftChild = buildTree(bestPartition[0], usedCols);
@@ -86,9 +85,9 @@ public class TreeBuilder {
     public static double gini(List<Object[]> data) {
         Map<Integer, Integer> counts = labelClasses(data);
         double impurity = 1.0;
-        for (int label : counts.keySet()) {
-            double probOfLabel = counts.get(label) / (double) data.size();
-            impurity -= Math.pow(probOfLabel, 2);
+        for (int count : counts.values()) {
+            double prob = count / (double) data.size();
+            impurity -= prob * prob;
         }
         return impurity;
     }

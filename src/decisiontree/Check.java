@@ -1,5 +1,7 @@
 package decisiontree;
 
+import static decisiontree.TreeBuilder.attributes;
+
 public class Check {
     int col;
     Object val;
@@ -11,10 +13,11 @@ public class Check {
 
     // Check if the value satisfies the condition (numerical or categorical comparison)
     boolean check(Object[] row) {
-        if (row[col] instanceof Integer) {
-            return (Integer) row[col] > (Integer) val;
-        } else {
-            return row[col].equals(val);
-        }
+        return (row[col] instanceof Integer) ? (Integer) row[col] > (Integer) val : row[col].equals(val);
+    }
+
+    @Override
+    public String toString() {
+        return "Is " + attributes[col] + ((val instanceof Integer) ? " > " : " == ") + val + "?";
     }
 }
