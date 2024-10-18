@@ -1,7 +1,8 @@
 package decisiontree;
 
-import java.util.*;
 import decisiontree.TreeNode.Check;
+
+import java.util.*;
 
 public class TreeBuilder {
     public static TreeNode buildTree(List<Object[]> data) {
@@ -16,9 +17,7 @@ public class TreeBuilder {
         for (int col = 0; col < TreeNode.attributes.length; col++) {
             Set<Object> uniqueValues = new HashSet<>();
             for (Object[] row : data) {
-                if (col < row.length) {
-                    uniqueValues.add(row[col]);
-                }
+                uniqueValues.add(row[col]);
             }
             for (Object value : uniqueValues) {
                 Check check = new Check(col, value);
@@ -41,9 +40,9 @@ public class TreeBuilder {
             return new TreeNode(labelClasses(data));
         }
 
-        TreeNode trueBranch = buildTree(bestPartition[0]);
-        TreeNode falseBranch = buildTree(bestPartition[1]);
-        return new TreeNode(bestCheck, trueBranch, falseBranch);
+        TreeNode leftChild = buildTree(bestPartition[0]);
+        TreeNode rightChild = buildTree(bestPartition[1]);
+        return new TreeNode(bestCheck, leftChild, rightChild);
     }
 
     public static List<Object[]>[] partition(Check condition, List<Object[]> data) {

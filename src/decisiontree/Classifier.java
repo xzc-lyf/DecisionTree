@@ -3,7 +3,7 @@ package decisiontree;
 import java.util.Map;
 
 public class Classifier {
-    static int classify(Object[] row, TreeNode node) {
+    public static int classify(Object[] row, TreeNode node) {
         if (node.isLeaf()) {
             return node.results.entrySet().stream()
                     .max(Map.Entry.comparingByValue())
