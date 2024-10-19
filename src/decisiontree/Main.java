@@ -11,6 +11,25 @@ import static decisiontree.DecisionTreeSaver.saveTreeToFile;
 import static decisiontree.FilePreprocessor.processAndSaveFile;
 import static decisiontree.DecisionTreeBuilder.buildTree;
 
+/**
+ * Main class is the starting point of executing the decision tree classifier program.
+ * 1. Pre-processing the training and test datasets.
+ * 2. Building a decision tree from the training data.
+ * 3. Classifying the test data and saving the results.
+ *
+ * The program reads data from input files, processes it, builds a decision tree,
+ * and outputs classification results and the decision tree to specified files.
+ *
+ * File paths:
+ * - Training data input: {@code trainingSetInputFilePath}
+ * - Training data preprocessed output: {@code trainingSetOutputFilePath}
+ * - Test data input: {@code testSetInputFilePath}
+ * - Test data preprocessed output: {@code testSetOutputFilePath}
+ * - Decision tree output: {@code decisionTreeFilePath}
+ * - Test result output: {@code testResultWithLabelFilePath}
+ *
+ * Time statistics for the entire process are also printed at the end.
+ */
 public class Main {
     static String trainingSetInputFilePath = "src/input/adult.data";
     static String trainingSetOutputFilePath = "src/output/adult_preprocessed.csv";
@@ -19,6 +38,12 @@ public class Main {
     static String decisionTreeFilePath = "src/output/decision_tree.txt";
     static String testResultWithLabelFilePath = "src/output/test_acc_results.txt";
 
+    /**
+     * The main method that orchestrates the pre-processing, decision tree building, and test data classification.
+     *
+     * @param args Command line arguments.
+     * @throws IOException If there are issues with file input/output operations.
+     */
     public static void main(String[] args) throws IOException {
         // 1. Pre-process training set.
         long beginTime = System.currentTimeMillis();

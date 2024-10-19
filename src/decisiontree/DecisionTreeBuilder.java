@@ -2,11 +2,22 @@ package decisiontree;
 
 import java.util.*;
 
+/**
+ * DecisionTreeBuilder class for building a decision tree based on a given dataset.
+ * This class implements methods for tree construction, data division, and Gini index calculation.
+ */
 public class DecisionTreeBuilder {
     public static final int SET_THRESHOLD = 100;
     public static String[] attributes = {"age", "workclass", "fnlwgt", "education", "education-num", "marital-status",
             "occupation", "relationship", "race", "sex", "capital-gain", "capital-loss", "hours-per-week"};
 
+    /**
+     * Builds a decision tree recursively based on the dataset.
+     *
+     * @param data The dataset used for building the tree.
+     * @param usedCols A set of columns already used to avoid redundant splits.
+     * @return The root node of the decision tree.
+     */
     public static TreeNode buildTree(List<Object[]> data, Set<Integer> usedCols) {
         if (data.isEmpty()) {
             return null;
@@ -17,8 +28,8 @@ public class DecisionTreeBuilder {
             set.add(row[row.length - 1]);
         }
 
-        // If the amount of data is less than a certain threshold SET_THRESHOLD or the label is unique,
-        // the leaf node is generated directly to avoid overfitting and excessive recursion.
+        // If data size is below threshold or labels are identical, create a leaf node directly
+        // to avoid overfitting and excessive recursion.
         if (data.size() < SET_THRESHOLD || set.size() == 1) {
             return new LeafNode(classCounts(data));
         }
@@ -28,6 +39,7 @@ public class DecisionTreeBuilder {
         List<Object[]>[] optDivision = null;
         int count = 0;
 
+        // Iterate through attributes and find the best split based on Gini impurity.
         for (int col = 0; col < attributes.length; col++) {
             if (usedCols.contains(col)) {
                 continue;
@@ -55,6 +67,7 @@ public class DecisionTreeBuilder {
             }
         }
 
+        // If no better split is found or all columns are used, return a leaf node.
         if (optGiniSplit == 0.5 || count + usedCols.size() == 13) {
             return new LeafNode(classCounts(data));
         }
@@ -65,6 +78,13 @@ public class DecisionTreeBuilder {
         return new TreeNode(optPredicate, leftChild, rightChild);
     }
 
+    /**
+     * Divides the data into two subsets based on the given predicate.
+     *
+     * @param predicate The condition used to split the data.
+     * @param data The dataset to be split.
+     * @return An array of two lists: one for data that matches the predicate and one for data that does not.
+     */
     public static List<Object[]>[] dataDivision(Predicate predicate, List<Object[]> data) {
         List<Object[]> trueList = new ArrayList<Object[]>();
         List<Object[]> falseList = new ArrayList<Object[]>();
@@ -78,11 +98,24 @@ public class DecisionTreeBuilder {
         return new List[]{trueList, falseList};
     }
 
+    /**
+     * Calculates the Gini impurity of a split into two subsets.
+     *
+     * @param trueList The subset of data that matches the predicate.
+     * @param falseList The subset of data that does not match the predicate.
+     * @return The Gini impurity of the split.
+     */
     public static double giniSplit(List<Object[]> trueList, List<Object[]> falseList) {
         double p = (double) trueList.size() / (trueList.size() + falseList.size());
         return p * gini(trueList) + (1 - p) * gini(falseList);
     }
 
+    /**
+     * Calculates the Gini impurity for a given subset of data.
+     *
+     * @param data The subset of data.
+     * @return The Gini impurity.
+     */
     public static double gini(List<Object[]> data) {
         Map<Integer, Integer> counts = classCounts(data);
         double impurity = 1.0;
@@ -93,6 +126,12 @@ public class DecisionTreeBuilder {
         return impurity;
     }
 
+    /**
+     * Counts the occurrences of each class label in the data.
+     *
+     * @param data The dataset to count class labels in.
+     * @return A map with class labels as keys and their frequencies as values.
+     */
     public static Map<Integer, Integer> classCounts(List<Object[]> data) {
         Map<Integer, Integer> classesMap = new HashMap<Integer, Integer>();
         for (Object[] row : data) {
