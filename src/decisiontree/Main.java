@@ -1,5 +1,7 @@
 package decisiontree;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
@@ -7,7 +9,7 @@ import java.util.List;
 import static decisiontree.Classifier.classify;
 import static decisiontree.DecisionTreeSaver.saveTreeToFile;
 import static decisiontree.FilePreprocessor.processAndSaveFile;
-import static decisiontree.TreeBuilder.buildTree;
+import static decisiontree.DecisionTreeBuilder.buildTree;
 
 public class Main {
     static String trainingSetInputFilePath = "src/input/adult.data";
@@ -15,6 +17,7 @@ public class Main {
     static String testSetInputFilePath = "src/input/adult.test";
     static String testSetOutputFilePath = "src/output/adult_test_preprocessed.csv";
     static String decisionTreeFilePath = "src/output/decision_tree.txt";
+    static String testResultWithLabelFilePath = "src/output/test_acc_results.txt";
 
     public static void main(String[] args) throws IOException {
         // 1. Pre-process training set.
@@ -31,8 +34,7 @@ public class Main {
         List<Object[]> testData = processAndSaveFile(testSetInputFilePath, testSetOutputFilePath);
 
         // 4. Classify test data.
-        System.out.println("Classifying test data...");
-        classify(testData, decisionTree);
+        classify(testData, decisionTree, new BufferedWriter(new FileWriter(testResultWithLabelFilePath)));
         long endTime = System.currentTimeMillis();
         System.out.println("Total Time: " + (endTime - beginTime) / 1000 + "s");
     }

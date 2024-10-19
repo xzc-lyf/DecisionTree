@@ -1,12 +1,12 @@
 package decisiontree;
 
 public class TreeNode {
-    Condition condition;
+    Predicate predicate;
     TreeNode leftChild;
     TreeNode rightChild;
 
-    TreeNode(Condition condition, TreeNode leftChild, TreeNode rightChild) {
-        this.condition = condition;
+    TreeNode(Predicate predicate, TreeNode leftChild, TreeNode rightChild) {
+        this.predicate = predicate;
         this.leftChild = leftChild;
         this.rightChild = rightChild;
     }
