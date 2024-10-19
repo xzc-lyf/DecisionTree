@@ -1,20 +1,20 @@
-└── Predicate: decisiontree.Predicate@75b84c92
-    ├── Predicate: decisiontree.Predicate@6bc7c054
-    │   ├── Predicate: decisiontree.Predicate@232204a1
-    │   │   ├── Predicate: decisiontree.Predicate@4aa298b7
-    │   │   │   ├── Predicate: decisiontree.Predicate@7d4991ad
-    │   │   │   │   ├── Predicate: decisiontree.Predicate@28d93b30
-    │   │   │   │   │   ├── Predicate: decisiontree.Predicate@1b6d3586
-    │   │   │   │   │   │   ├── Predicate: decisiontree.Predicate@4554617c
+└── Predicate: Is marital-status == Married-civ-spouse?
+    ├── Predicate: Is education-num > 12?
+    │   ├── Predicate: Is capital-gain > 5013?
+    │   │   ├── Predicate: Is capital-loss > 1740?
+    │   │   │   ├── Predicate: Is age > 35?
+    │   │   │   │   ├── Predicate: Is education == Some-college?
+    │   │   │   │   │   ├── Predicate: Is fnlwgt > 146706?
+    │   │   │   │   │   │   ├── Predicate: Is workclass == Federal-gov?
     │   │   │   │   │   │   │   ├── Label: 1, LeafNode: {-1=3, 1=4}
-    │   │   │   │   │   │   │   └── Predicate: decisiontree.Predicate@74a14482
-    │   │   │   │   │   │   │       ├── Predicate: decisiontree.Predicate@1540e19d
+    │   │   │   │   │   │   │   └── Predicate: Is hours-per-week > 49?
+    │   │   │   │   │   │   │       ├── Predicate: Is occupation == Protective-serv?
     │   │   │   │   │   │   │       │   ├── Label: -1, LeafNode: {-1=2, 1=2}
-    │   │   │   │   │   │   │       │   └── Predicate: decisiontree.Predicate@677327b6
+    │   │   │   │   │   │   │       │   └── Predicate: Is relationship == Other-relative?
     │   │   │   │   │   │   │       │       ├── Label: -1, LeafNode: {-1=1, 1=1}
-    │   │   │   │   │   │   │       │       └── Predicate: decisiontree.Predicate@14ae5a5
+    │   │   │   │   │   │   │       │       └── Predicate: Is race == Asian-Pac-Islander?
     │   │   │   │   │   │   │       │           ├── Label: -1, LeafNode: {-1=4, 1=2}
-    │   │   │   │   │   │   │       │           └── Predicate: decisiontree.Predicate@7f31245a
+    │   │   │   │   │   │   │       │           └── Predicate: Is sex == Female?
     │   │   │   │   │   │   │       │               ├── Label: -1, LeafNode: {-1=32, 1=3}
     │   │   │   │   │   │   │       │               └── Label: -1, LeafNode: {-1=134, 1=16}
     │   │   │   │   │   │   │       └── Label: -1, LeafNode: {-1=59, 1=20}

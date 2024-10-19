@@ -1,5 +1,7 @@
 package decisiontree;
 
+import static decisiontree.DecisionTreeBuilder.attributes;
+
 /**
  * Condition of the tree node
  */
@@ -23,5 +25,11 @@ public class Predicate {
         } else {
             return row[attribute].equals(value);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Is " + attributes[attribute] + ((value instanceof Integer) ? " > " : " == ") + value + "?";
+
     }
 }
