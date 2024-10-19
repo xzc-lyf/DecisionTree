@@ -1,5 +1,8 @@
 package decisiontree;
 
+/**
+ * Condition of the tree node
+ */
 public class Predicate {
     int attribute;
     Object value;
@@ -9,7 +12,11 @@ public class Predicate {
         this.value = value;
     }
 
-    // Predicate if the value satisfies the predicate (numerical or categorical comparison)
+    /**
+     * function that predicate if the value satisfies the predicate
+     * @param row one row of dataset
+     * @return true if the attribute meet the condition, false otherwise
+     */
     boolean predicate(Object[] row) {
         if (row[attribute] instanceof Integer) {
             return (Integer) row[attribute] <= (Integer) value;

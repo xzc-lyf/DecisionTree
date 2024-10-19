@@ -1,5 +1,9 @@
 package decisiontree;
 
+/**
+ * internal treenode of the decision tree
+ * including predicate leftchild and rightchild
+ */
 public class TreeNode {
     Predicate predicate;
     TreeNode leftChild;
