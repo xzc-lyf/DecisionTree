@@ -1,13 +1,13 @@
 package decisiontree;
 
 public class TreeNode {
-    Check condition;
-    TreeNode trueBranch;
-    TreeNode falseBranch;
+    Predicate predicate;
+    TreeNode leftChild;
+    TreeNode rightChild;
 
-    TreeNode(Check condition, TreeNode trueBranch, TreeNode falseBranch) {
-        this.condition = condition;
-        this.trueBranch = trueBranch;
-        this.falseBranch = falseBranch;
+    TreeNode(Predicate predicate, TreeNode leftChild, TreeNode rightChild) {
+        this.predicate = predicate;
+        this.leftChild = leftChild;
+        this.rightChild = rightChild;
     }
 }

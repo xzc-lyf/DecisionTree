@@ -23,9 +23,9 @@ public class DecisionTreeSaver {
             LeafNode leaf = (LeafNode) node;
             writer.write(prefix + (isTail ? "└── " : "├── ") + "Leaf: " + leaf.results + "\n");
         } else {
-            writer.write(prefix + (isTail ? "└── " : "├── ") + "Check: " + node.condition + "\n");
-            saveNode(node.trueBranch, writer, prefix + (isTail ? "    " : "│   "), false);
-            saveNode(node.falseBranch, writer, prefix + (isTail ? "    " : "│   "), true);
+            writer.write(prefix + (isTail ? "└── " : "├── ") + "Predicate: " + node.predicate + "\n");
+            saveNode(node.leftChild, writer, prefix + (isTail ? "    " : "│   "), false);
+            saveNode(node.rightChild, writer, prefix + (isTail ? "    " : "│   "), true);
         }
     }
 }

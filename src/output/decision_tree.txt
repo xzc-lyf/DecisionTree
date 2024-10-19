@@ -1,26 +1,26 @@
-└── Check: decisiontree.Check@75b84c92
-    ├── Check: decisiontree.Check@6bc7c054
-    │   ├── Check: decisiontree.Check@232204a1
-    │   │   ├── Check: decisiontree.Check@4aa298b7
+└── Predicate: decisiontree.Predicate@1b6d3586
+    ├── Predicate: decisiontree.Predicate@4554617c
+    │   ├── Predicate: decisiontree.Predicate@74a14482
+    │   │   ├── Predicate: decisiontree.Predicate@1540e19d
     │   │   │   ├── Leaf: {-1=1, 1=3}
-    │   │   │   └── Check: decisiontree.Check@7d4991ad
+    │   │   │   └── Predicate: decisiontree.Predicate@677327b6
     │   │   │       ├── Leaf: {-1=1, 1=4}
     │   │   │       └── Leaf: {1=631}
-    │   │   └── Check: decisiontree.Check@28d93b30
-    │   │       ├── Check: decisiontree.Check@1b6d3586
+    │   │   └── Predicate: decisiontree.Predicate@14ae5a5
+    │   │       ├── Predicate: decisiontree.Predicate@7f31245a
     │   │       │   ├── Leaf: {-1=2, 1=12}
-    │   │       │   └── Check: decisiontree.Check@4554617c
+    │   │       │   └── Predicate: decisiontree.Predicate@6d6f6e28
     │   │       │       ├── Leaf: {-1=2, 1=22}
-    │   │       │       └── Check: decisiontree.Check@74a14482
+    │   │       │       └── Predicate: decisiontree.Predicate@135fbaa4
     │   │       │           ├── Leaf: {-1=2, 1=31}
-    │   │       │           └── Check: decisiontree.Check@1540e19d
-    │   │       │               ├── Check: decisiontree.Check@677327b6
+    │   │       │           └── Predicate: decisiontree.Predicate@45ee12a7
+    │   │       │               ├── Predicate: decisiontree.Predicate@330bedb4
     │   │       │               │   ├── Leaf: {-1=1, 1=14}
-    │   │       │               │   └── Check: decisiontree.Check@14ae5a5
+    │   │       │               │   └── Predicate: decisiontree.Predicate@2503dbd3
     │   │       │               │       ├── Leaf: {-1=2, 1=147}
     │   │       │               │       └── Leaf: {1=133}
     │   │       │               └── Leaf: {-1=1, 1=7}
-    │   │       └── Check: decisiontree.Check@7f31245a
+    │   │       └── Predicate: decisiontree.Predicate@4b67cf4d
     │   │           ├── Leaf: {-1=1004, 1=1836}
     │   │           └── Leaf: {-1=112, 1=217}
     │   └── Leaf: {-1=6538, 1=3342}

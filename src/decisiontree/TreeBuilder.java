@@ -17,11 +17,11 @@ public class TreeBuilder {
         }
 
         if (data.size() < S_Bar || set.size() == 1) {
-            return new LeafNode(labelClasses(data));
+            return new LeafNode(classCounts(data));
         }
 
         double bestGini = 0.5;
-        Check bestCheck = null;
+        Predicate bestPredicate = null;
         List<Object[]>[] bestPartition = null;
         int count = 0;
 
@@ -38,8 +38,8 @@ public class TreeBuilder {
             }
 
             for (Object value : uniqueValues) {
-                Check check = new Check(col, value);
-                List<Object[]>[] partitions = partition(check, data);
+                Predicate predicate = new Predicate(col, value);
+                List<Object[]>[] partitions = dataDivision(predicate, data);
                 List<Object[]> trueList = partitions[0];
                 List<Object[]> falseList = partitions[1];
 
@@ -48,52 +48,52 @@ public class TreeBuilder {
                 double giniSplit = giniSplit(trueList, falseList);
                 if (giniSplit < bestGini) {
                     bestGini = giniSplit;
-                    bestCheck = check;
+                    bestPredicate = predicate;
                     bestPartition = partitions;
                 }
             }
         }
 
         if (bestGini == 0.5 || count + usedCols.size() == 13) {
-            return new LeafNode(labelClasses(data));
+            return new LeafNode(classCounts(data));
         }
         // 记录使用的列
-        usedCols.add(bestCheck.col);
+        usedCols.add(bestPredicate.col);
 
         TreeNode leftChild = buildTree(bestPartition[0], usedCols);
         TreeNode rightChild = buildTree(bestPartition[1], usedCols);
-        return new TreeNode(bestCheck, leftChild, rightChild);
+        return new TreeNode(bestPredicate, leftChild, rightChild);
     }
 
-    public static List<Object[]>[] partition(Check condition, List<Object[]> data) {
-        List<Object[]> trueSet = new ArrayList<Object[]>();
-        List<Object[]> falseSet = new ArrayList<Object[]>();
+    public static List<Object[]>[] dataDivision(Predicate predicate, List<Object[]> data) {
+        List<Object[]> trueList = new ArrayList<Object[]>();
+        List<Object[]> falseList = new ArrayList<Object[]>();
         for (Object[] row : data) {
-            if (condition.check(row)) {
-                trueSet.add(row);
+            if (predicate.predicate(row)) {
+                trueList.add(row);
             } else {
-                falseSet.add(row);
+                falseList.add(row);
             }
         }
-        return new List[]{trueSet, falseSet};
+        return new List[]{trueList, falseList};
     }
 
-    public static double giniSplit(List<Object[]> left, List<Object[]> right) {
-        double p = (double) left.size() / (left.size() + right.size());
-        return p * gini(left) + (1 - p) * gini(right);
+    public static double giniSplit(List<Object[]> trueList, List<Object[]> falseList) {
+        double p = (double) trueList.size() / (trueList.size() + falseList.size());
+        return p * gini(trueList) + (1 - p) * gini(falseList);
     }
 
     public static double gini(List<Object[]> data) {
-        Map<Integer, Integer> counts = labelClasses(data);
+        Map<Integer, Integer> counts = classCounts(data);
         double impurity = 1.0;
         for (int label : counts.keySet()) {
-            double probOfLabel = counts.get(label) / (double) data.size();
-            impurity -= Math.pow(probOfLabel, 2);
+            double proportion = counts.get(label) / (double) data.size();
+            impurity -= Math.pow(proportion, 2);
         }
         return impurity;
     }
 
-    public static Map<Integer, Integer> labelClasses(List<Object[]> data) {
+    public static Map<Integer, Integer> classCounts(List<Object[]> data) {
         Map<Integer, Integer> counts = new HashMap<Integer, Integer>();
         for (Object[] row : data) {
             int label = (Integer) row[row.length - 1];

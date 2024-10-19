@@ -7,10 +7,10 @@ public class Classifier {
             return leaf.category;
         }
 
-        if (node.condition.check(row)) {
-            return classify(row, node.trueBranch);
+        if (node.predicate.predicate(row)) {
+            return classify(row, node.leftChild);
         } else {
-            return classify(row, node.falseBranch);
+            return classify(row, node.rightChild);
         }
     }
 }
