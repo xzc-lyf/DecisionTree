@@ -29,7 +29,7 @@ public class Predicate {
 
     @Override
     public String toString() {
-        return "Is " + attributes[attribute] + ((value instanceof Integer) ? " > " : " == ") + value + "?";
+        return "Is " + attributes[attribute] + ((value instanceof Integer) ? " <= " : " == ") + value + "?";
 
     }
 }
