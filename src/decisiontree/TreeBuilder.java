@@ -3,7 +3,7 @@ package decisiontree;
 import java.util.*;
 
 public class TreeBuilder {
-    public static final int S_Bar = 100;
+    public static final int SET_THRESHOLD = 100;
     public static String[] attributes = {"age", "workclass", "fnlwgt", "education", "education-num", "marital-status",
             "occupation", "relationship", "race", "sex", "capital-gain", "capital-loss", "hours-per-week"};
 
@@ -17,12 +17,14 @@ public class TreeBuilder {
             set.add(row[row.length - 1]);
         }
 
-        if (data.size() < S_Bar || set.size() == 1) {
+        // If the amount of data is less than a certain threshold SET_THRESHOLD or the label is unique,
+        // the leaf node is generated directly to avoid overfitting and excessive recursion.
+        if (data.size() < SET_THRESHOLD || set.size() == 1) {
             return new LeafNode(labelClasses(data));
         }
 
         double bestGini = 0.5;
-        Check bestCheck = null;
+        Condition bestCondition = null;
         List<Object[]>[] bestPartition = null;
         int count = 0;
 
@@ -39,15 +41,15 @@ public class TreeBuilder {
             }
 
             for (Object value : uniqueValues) {
-                Check check = new Check(col, value);
-                List<Object[]>[] partitions = partition(check, data);
+                Condition condition = new Condition(col, value);
+                List<Object[]>[] partitions = partition(condition, data);
                 List<Object[]> leftChild = partitions[0];
                 List<Object[]> rightChild = partitions[1];
 
                 double giniSplit = giniSplit(leftChild, rightChild);
                 if (!leftChild.isEmpty() && !rightChild.isEmpty() && giniSplit < bestGini) {
                     bestGini = giniSplit;
-                    bestCheck = check;
+                    bestCondition = condition;
                     bestPartition = partitions;
                 }
             }
@@ -57,14 +59,14 @@ public class TreeBuilder {
             return new LeafNode(labelClasses(data));
         }
 
-        usedCols.add(bestCheck.col);
+        usedCols.add(bestCondition.col);
 
         TreeNode leftChild = buildTree(bestPartition[0], usedCols);
         TreeNode rightChild = buildTree(bestPartition[1], usedCols);
-        return new TreeNode(bestCheck, leftChild, rightChild);
+        return new TreeNode(bestCondition, leftChild, rightChild);
     }
 
-    public static List<Object[]>[] partition(Check condition, List<Object[]> data) {
+    public static List<Object[]>[] partition(Condition condition, List<Object[]> data) {
         List<Object[]> trueSet = new ArrayList<Object[]>();
         List<Object[]> falseSet = new ArrayList<Object[]>();
         for (Object[] row : data) {

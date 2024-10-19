@@ -2,18 +2,18 @@ package decisiontree;
 
 import static decisiontree.TreeBuilder.attributes;
 
-public class Check {
+public class Condition {
     int col;
     Object val;
 
-    Check(int col, Object val) {
+    Condition(int col, Object val) {
         this.col = col;
         this.val = val;
     }
 
     // Check if the value satisfies the condition (numerical or categorical comparison)
     boolean check(Object[] row) {
-        return (row[col] instanceof Integer) ? (Integer) row[col] > (Integer) val : row[col].equals(val);
+        return (row[col] instanceof Integer) ? (Integer) row[col] <= (Integer) val : row[col].equals(val);
     }
 
     @Override

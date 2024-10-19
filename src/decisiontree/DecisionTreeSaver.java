@@ -20,11 +20,11 @@ public class DecisionTreeSaver {
     private static void saveNode(TreeNode node, BufferedWriter writer, String prefix, boolean isTail) throws IOException {
         if (node instanceof LeafNode) {
             LeafNode leaf = (LeafNode) node;
-            writer.write(prefix + (isTail ? "└── " : "├── ") + "Leaf: " + leaf.results + "\n");
+            writer.write(prefix + (isTail ? "└── " : "├── ") + "Label: " + leaf.category  + ", LeafNode: " + leaf.results + "\n");
         } else {
-            writer.write(prefix + (isTail ? "└── " : "├── ") + "Check: " + node.condition + "\n");
-            saveNode(node.trueBranch, writer, prefix + (isTail ? "    " : "│   "), false);
-            saveNode(node.falseBranch, writer, prefix + (isTail ? "    " : "│   "), true);
+            writer.write(prefix + (isTail ? "└── " : "├── ") + "TreeNode: " + node.condition + "\n");
+            saveNode(node.leftChild, writer, prefix + (isTail ? "    " : "│   "), false);
+            saveNode(node.rightChild, writer, prefix + (isTail ? "    " : "│   "), true);
         }
     }
 }
