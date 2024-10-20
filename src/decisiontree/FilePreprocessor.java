@@ -32,7 +32,7 @@ public class FilePreprocessor {
                     }
                     String incomeLabel = fields[fields.length - 1];
                     // Convert the value of income from binary to integer 1(>50K) and -1(<=50K).
-                    int label = incomeLabel.equals(">50K") || incomeLabel.equals(">50K.") ? 1 : -1;
+                    int label = incomeLabel.equals(">50K") || incomeLabel.equals(">50K.") ? -1 : 1;
                     filteredFields.add(String.valueOf(label));
                     processedLines.add(join(filteredFields));
                 }

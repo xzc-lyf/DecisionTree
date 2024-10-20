@@ -6,22 +6,22 @@
     │   │   │   │   ├── Predicate: Is education == Some-college?
     │   │   │   │   │   ├── Predicate: Is fnlwgt <= 146706?
     │   │   │   │   │   │   ├── Predicate: Is workclass == Federal-gov?
-    │   │   │   │   │   │   │   ├── Label: 1, LeafNode: {-1=3, 1=4}
+    │   │   │   │   │   │   │   ├── Label: -1, LeafNode: {-1=4, 1=3}
     │   │   │   │   │   │   │   └── Predicate: Is hours-per-week <= 49?
     │   │   │   │   │   │   │       ├── Predicate: Is occupation == Protective-serv?
     │   │   │   │   │   │   │       │   ├── Label: -1, LeafNode: {-1=2, 1=2}
     │   │   │   │   │   │   │       │   └── Predicate: Is relationship == Other-relative?
     │   │   │   │   │   │   │       │       ├── Label: -1, LeafNode: {-1=1, 1=1}
     │   │   │   │   │   │   │       │       └── Predicate: Is race == Asian-Pac-Islander?
-    │   │   │   │   │   │   │       │           ├── Label: -1, LeafNode: {-1=4, 1=2}
+    │   │   │   │   │   │   │       │           ├── Label: 1, LeafNode: {-1=2, 1=4}
     │   │   │   │   │   │   │       │           └── Predicate: Is sex == Female?
-    │   │   │   │   │   │   │       │               ├── Label: -1, LeafNode: {-1=32, 1=3}
-    │   │   │   │   │   │   │       │               └── Label: -1, LeafNode: {-1=134, 1=16}
-    │   │   │   │   │   │   │       └── Label: -1, LeafNode: {-1=59, 1=20}
-    │   │   │   │   │   │   └── Label: -1, LeafNode: {-1=377, 1=163}
-    │   │   │   │   │   └── Label: -1, LeafNode: {-1=1859, 1=344}
-    │   │   │   │   └── Label: -1, LeafNode: {-1=3959, 1=2036}
-    │   │   │   └── Label: 1, LeafNode: {-1=98, 1=257}
-    │   │   └── Label: 1, LeafNode: {-1=10, 1=494}
-    │   └── Label: 1, LeafNode: {-1=1128, 1=3057}
-    └── Label: -1, LeafNode: {-1=14988, 1=1109}
+    │   │   │   │   │   │   │       │               ├── Label: 1, LeafNode: {-1=3, 1=32}
+    │   │   │   │   │   │   │       │               └── Label: 1, LeafNode: {-1=16, 1=134}
+    │   │   │   │   │   │   │       └── Label: 1, LeafNode: {-1=20, 1=59}
+    │   │   │   │   │   │   └── Label: 1, LeafNode: {-1=163, 1=377}
+    │   │   │   │   │   └── Label: 1, LeafNode: {-1=344, 1=1859}
+    │   │   │   │   └── Label: 1, LeafNode: {-1=2036, 1=3959}
+    │   │   │   └── Label: -1, LeafNode: {-1=257, 1=98}
+    │   │   └── Label: -1, LeafNode: {-1=494, 1=10}
+    │   └── Label: -1, LeafNode: {-1=3057, 1=1128}
+    └── Label: 1, LeafNode: {-1=1109, 1=14988}
