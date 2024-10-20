@@ -50,9 +50,9 @@ The program will return the following logs in the console:
 Building decision tree will take several minutes...
 Decision tree built, please check the output directory.
 Classifying test data...
-CorrectClassifiedNum: 12576, Total: 15060
-Precision: 83.50598%
-Total Time: 32s
+CorrectClassifiedNum: 12575, Total: 15060
+Precision: 83.49934%
+Total Time: 36s
 ```
 
 ## Dataset
@@ -66,7 +66,7 @@ Evaluation Set. We place this file in input folder.
 
 ### Output
 `adult_preprocessed.csv`:
-The processed trainning set(Note that `-1` represents income `<=50K`, while `1` represents income `>50K`,  remove all the records containing '?', remove the attribute "native-country"). We place this file in output folder.
+The processed trainning set(Note that `1` represents income `<=50K`, while `-1` represents income `>50K`,  remove all the records containing '?', remove the attribute "native-country"). We place this file in output folder.
 
 `adult_test_preprocessed.csv`:
 The processed evaluation set(Same as above). We place this file in output folder.
