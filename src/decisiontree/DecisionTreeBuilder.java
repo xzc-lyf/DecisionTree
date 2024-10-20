@@ -67,7 +67,7 @@ public class DecisionTreeBuilder {
             }
         }
 
-        // If no better split is found or all columns are used, return a leaf node.
+        // If no better split is found or all attributes unused have the same value , return a leaf node.
         if (optGiniSplit == 0.5 || count + usedCols.size() == 13) {
             return new LeafNode(classCounts(data));
         }
