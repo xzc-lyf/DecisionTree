@@ -21,9 +21,9 @@ The group project of CMSC5724 2024fall
 This project is a Java implementation of a decision tree classifier. The decision tree algorithm is widely used for both classification and regression tasks. This implementation can be applied to datasets to predict outcomes based on given input features.
 
 ## Features
-- **Decision Tree Creation**: Generates a decision tree based on the input dataset.
-- **Classification**: Classifies new data points based on the trained decision tree.
-- **Accuracy calculation**: Calculate the accuracy of the classification.
+**Decision Tree Creation**: Generates a decision tree based on the input dataset.<br>
+**Classification**: Classifies new data points based on the trained decision tree.<br>
+**Accuracy calculation**: Calculate the accuracy of the classification.
 
 ## Dataset Pre-processing
 
@@ -58,8 +58,28 @@ The file contains the prediction results of each row of data.
 ### Requirement
 ```
 jdk >= 1.6
-Operation System: Window,Linux
+Operation System: Mac, Window, Linux
 ```
+
+### Run the executable program
+File Structure:<br>
+
+```
+├── DecisionTree.jar
+└── src
+    ├── input
+    │   ├── adult.data
+    │   └── adult.test
+    └── output
+```
+
+
+1. Please ensure that these files or directory exist: 
+ `src/input/adult.data` <br>
+ `src/input/adult.test` <br>
+ `src/output` 
+2. Do not modify the directory structure or file names, otherwise an exception will occur during execution. 
+3. Open the terminal in the directory where `DecisionTree.jar` is located, and run the command `java -jar DecisionTree.jar`. The program will start running and output the results to `src/output`.
 
 ### Run the code
 
@@ -78,7 +98,8 @@ Operation System: Window,Linux
 5. Run the decision tree program:
 	```bash
 	java Main <input_dataset> <output_predictions>
-### Result
+ 
+### Outcome
 The program will return the following logs in the console:
 
 ```
