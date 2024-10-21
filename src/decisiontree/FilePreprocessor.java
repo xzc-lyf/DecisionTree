@@ -8,7 +8,7 @@ import java.util.List;
  * Preprocessing includes 4 parts basically:
  *   1. Remove rows containing missing values.
  *   2. Remove the attribute "native-country".
- *   3. Convert the value of income from binary to integer 1(>50K) and -1(<=50K).
+ *   3. Convert the value of income from binary to integer 1(<=50K) and -1(>50K).
  *   4. Save the processed files to output directory.
  */
 public class FilePreprocessor {
@@ -31,7 +31,7 @@ public class FilePreprocessor {
                         }
                     }
                     String incomeLabel = fields[fields.length - 1];
-                    // Convert the value of income from binary to integer 1(>50K) and -1(<=50K).
+                    // Convert the value of income from binary to integer 1(<=50K) and -1(>50K).
                     int label = incomeLabel.equals(">50K") || incomeLabel.equals(">50K.") ? -1 : 1;
                     filteredFields.add(String.valueOf(label));
                     processedLines.add(join(filteredFields));

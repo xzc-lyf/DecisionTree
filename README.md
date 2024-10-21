@@ -3,19 +3,19 @@
 The group project of CMSC5724 2024fall
 >    Li Yifei 1155215544
 
->
-
 >    Wang Yu 1155215635
-
->
 
 >    Tang Jiayi 1155215625
 
->
-
 >    Fu Tianxing 1155215550
 
->
+## Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Dataset](#dataset)
+- [Usage](#usage)
+- [Program Structure](#program-structure)
 
 ## Overview
 This project is a Java implementation of a decision tree classifier. The decision tree algorithm is widely used for both classification and regression tasks. This implementation can be applied to datasets to predict outcomes based on given input features.
@@ -25,7 +25,42 @@ This project is a Java implementation of a decision tree classifier. The decisio
 - **Classification**: Classifies new data points based on the trained decision tree.
 - **Accuracy calculation**: Calculate the accuracy of the classification.
 
+## Dataset Pre-processing
+
+1. remove all the records containing '?'
+2. remove the attribute "native-country"
+3. Convert '<=50K' to 1, and '>50K' to -1
+rounding-off column fnlwgt and column capital gain to simplify these contiunous data
+
+### Input
+`adult.data`:
+Trainning Set. We place this file in input folder.
+
+`adult.test`:
+Evaluation Set. We place this file in input folder.
+
+### Output
+`adult_preprocessed.csv`:
+The processed trainning set(Note that `1` represents income `<=50K`, while `-1` represents income `>50K`,  remove all the records containing '?', remove the attribute "native-country"). We place this file in output folder.
+
+`adult_test_preprocessed.csv`:
+The processed evaluation set(Same as above). We place this file in output folder.
+
+`decision_tree.txt`:
+The decision tree.
+
+`test_acc_results`:
+The file contains the prediction results of each row of data.
+
+
 ## Usage
+
+### Requirement
+```
+jdk >= 1.6
+Operation System: Window,Linux
+```
+
 ### Run the code
 
 1. Ensure you have [Java JDK](https://www.oracle.com/java/technologies/javase-downloads.html) installed on your machine.
@@ -55,27 +90,6 @@ Precision: 83.49934%
 Total Time: 36s
 ```
 
-## Dataset
-
-### Input
-`adult.data`: 
-Trainning Set. We place this file in input folder.
-
-`adult.test`: 
-Evaluation Set. We place this file in input folder.
-
-### Output
-`adult_preprocessed.csv`:
-The processed trainning set(Note that `1` represents income `<=50K`, while `-1` represents income `>50K`,  remove all the records containing '?', remove the attribute "native-country"). We place this file in output folder.
-
-`adult_test_preprocessed.csv`:
-The processed evaluation set(Same as above). We place this file in output folder.
-
-`decision_tree.txt`:
-The decision tree.
-  
-`test_acc_results`:
-The file contains the prediction results of each row of data.
 ## Program structure
 ```
 - Main.java(Main program)
