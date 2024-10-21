@@ -74,7 +74,7 @@ File Structure:<br>
 ```
 
 
-1. Please ensure that these files or directory exist: 
+1. Please ensure that these files or directory exist: <br>
  `src/input/adult.data` <br>
  `src/input/adult.test` <br>
  `src/output` 
