@@ -30,7 +30,6 @@ This project is a Java implementation of a decision tree classifier. The decisio
 1. remove all the records containing '?'
 2. remove the attribute "native-country"
 3. Convert '<=50K' to 1, and '>50K' to -1
-rounding-off column fnlwgt and column capital gain to simplify these contiunous data
 
 ### Input
 `adult.data`:
