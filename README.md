@@ -60,7 +60,7 @@ jdk >= 1.6
 Operation System: Mac, Window, Linux
 ```
 
-### Run the executable program
+### Run the program
 File Structure:<br>
 
 ```
@@ -79,24 +79,6 @@ File Structure:<br>
  `src/output` 
 2. Do not modify the directory structure or file names, otherwise an exception will occur during execution. 
 3. Open the terminal in the directory where `DecisionTree.jar` is located, and run the command `java -jar DecisionTree.jar`. The program will start running and output the results to `src/output`.
-
-### Run the code
-
-1. Ensure you have [Java JDK](https://www.oracle.com/java/technologies/javase-downloads.html) installed on your machine.
-   ```bash
-   java -version
-2. Clone the repository or download the source code:
-   ```bash
-   git clone https://github.com/xzc-lyf/DecisionTree.git
-3. Navigate to the project directory:
-	```bash
-	cd decisiontree
-4. Compile the Java files:
-	```bash
-	javac *.java
-5. Run the decision tree program:
-	```bash
-	java Main <input_dataset> <output_predictions>
  
 ### Outcome
 The program will return the following logs in the console:
