@@ -9,6 +9,25 @@ The group project of CMSC5724 2024fall
 
 >    Fu Tianxing 1155215550
 
+File Structure:<br>
+
+```
+├── DecisionTree                            # Source Code
+├── src                                     # Please donot change the name and structure to run the program
+│   ├── input
+│   │   ├── adult.data                      # Training dataset
+│   │   ├── adult.test                      # Test dataset
+│   ├── output
+│   │   ├── adult_preprocessed.csv          # Preprocessed training dataset
+│   │   ├── adult_test_preprocessed.csv     # Preprocessed test dataset
+│   │   ├── decision_tree.txt               # Decision tree structure output
+│   │   ├── test_acc_results.txt            # Test accuracy results
+├── CMSC5724_DecisionTree_Report.docx       # Project report
+├── DecisionTree.jar                        # Executable program
+├── README.md                               # Project description and instructions
+```
+
+
 ## Table of Contents
 
 - [Overview](#overview)
